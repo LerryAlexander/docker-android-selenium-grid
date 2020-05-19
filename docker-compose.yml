@@ -1,0 +1,124 @@
+version: '3'
+
+services:
+
+  # test container service for running tests
+  test_container:
+    entrypoint: /bin/bash
+    command: -c "gradle test --debug"
+    image: test_container
+    container_name: test_container
+    #volumes:
+      #- ./tests-output/android07/cucumberReport/:/bfcl_e2e_automation/target/cucumberOptions
+      #- ./tests-output/gradleReport/:/docker_selenium_grid/build/reports/
+    working_dir: "/docker_selenium_grid_example/"
+    hostname: test_container_hostname
+    networks:
+      docker_network:
+        aliases:
+          - selenium_hub
+          - node_samsung_s6
+          - node_samsung_s10
+    depends_on:
+      - selenium_hub
+      - node_samsung_s6
+      - node_samsung_s10
+    environment:
+      - DOCKER_SELENIUM_PORT=4444
+      - DOCKER_SELENIUM_HOST=selenium_hub
+    ports:
+      - "8000:8000"
+    restart: on-failure
+
+  # Selenium hub
+  selenium_hub:
+    image: selenium/hub
+    container_name: selenium-hub
+    hostname: selenium-hub
+    networks:
+      - docker_network
+    ports:
+      - "4444:4444"
+
+  # Using Appium Docker Android
+  node_samsung_s6:
+    image: budtmo/docker-android-x86-6.0
+    #container_name: androidEmulator7.0-appium-container
+    privileged: true
+    networks:
+      - docker_network
+    hostname: samsungs9_hostname
+    depends_on:
+      - selenium_hub
+    ports:
+      - "6080:6080"
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
+      - ./src/test/java/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
+      - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video
+      - ./check_docker_android_device.sh:/root/check_docker_android_device.sh
+    environment:
+      - DEVICE=Samsung Galaxy S6
+      - CONNECT_TO_GRID=true
+      - APPIUM=true
+      - SELENIUM_HOST=selenium_hub
+      - MOBILE_WEB_TEST=false
+      - AUTO_RECORD=true
+    healthcheck:
+      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    labels:
+      autoheal: "true"  # allow docker-autoheal to restart if unhealthy
+
+  # Using Appium Docker Android
+  node_samsung_s10:
+    image: budtmo/docker-android-x86-10.0
+    #container_name: androidEmulator7.0-appium-container
+    privileged: true
+    networks:
+      - docker_network
+    hostname: samsungs10_hostname
+    depends_on:
+      - selenium_hub
+    ports:
+      - "6081:6080"
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
+      - ./src/test/java/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
+      - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video
+      - ./check_docker_android_device.sh:/root/check_docker_android_device.sh
+    environment:
+      - DEVICE=Samsung Galaxy S10
+      - CONNECT_TO_GRID=true
+      - APPIUM=true
+      - SELENIUM_HOST=selenium_hub
+      - MOBILE_WEB_TEST=false
+      - AUTO_RECORD=true
+    healthcheck:
+      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    labels:
+      autoheal: "true"  # allow docker-autoheal to restart if unhealthy
+
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - node_samsung_s6
+      - node_samsung_s10
+
+networks:
+  docker_network:
+
+  #sudo service docker restart
+

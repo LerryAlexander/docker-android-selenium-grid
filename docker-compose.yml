@@ -5,13 +5,12 @@ services:
   # test container service for running tests
   test_container:
     entrypoint: /bin/bash
-    command: -c "gradle test --debug"
+    command: -c "./gradlew clean test --debug"
     image: test_container
     container_name: test_container
-    #volumes:
-      #- ./tests-output/android07/cucumberReport/:/bfcl_e2e_automation/target/cucumberOptions
-      #- ./tests-output/gradleReport/:/docker_selenium_grid/build/reports/
-    working_dir: "/docker_selenium_grid_example/"
+    volumes:
+      - ./tests-output/testngOutput/:/docker_selenium_grid/tests-output/testngOutput/ #path to TestNG and gradle reports
+    working_dir: "/docker_selenium_grid/"
     hostname: test_container_hostname
     networks:
       docker_network:
@@ -28,7 +27,7 @@ services:
       - DOCKER_SELENIUM_HOST=selenium_hub
     ports:
       - "8000:8000"
-    restart: on-failure
+    #restart: on-failure
 
   # Selenium hub
   selenium_hub:
@@ -43,11 +42,10 @@ services:
   # Using Appium Docker Android
   node_samsung_s6:
     image: budtmo/docker-android-x86-6.0
-    #container_name: androidEmulator7.0-appium-container
     privileged: true
     networks:
       - docker_network
-    hostname: samsungs9_hostname
+    hostname: samsungs6_hostname
     depends_on:
       - selenium_hub
     ports:
@@ -55,8 +53,8 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
-      - ./src/test/java/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video
+      - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
+      - ./tests-output/video/video-samsung-galaxy-s10:/tmp/video
       - ./check_docker_android_device.sh:/root/check_docker_android_device.sh
     environment:
       - DEVICE=Samsung Galaxy S6
@@ -76,7 +74,6 @@ services:
   # Using Appium Docker Android
   node_samsung_s10:
     image: budtmo/docker-android-x86-10.0
-    #container_name: androidEmulator7.0-appium-container
     privileged: true
     networks:
       - docker_network
@@ -88,7 +85,7 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
-      - ./src/test/java/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
+      - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video
       - ./check_docker_android_device.sh:/root/check_docker_android_device.sh
     environment:
@@ -120,5 +117,4 @@ services:
 networks:
   docker_network:
 
-  #sudo service docker restart
 

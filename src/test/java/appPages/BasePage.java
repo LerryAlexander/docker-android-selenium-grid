@@ -14,7 +14,4 @@ public class BasePage {
         PageFactory.initElements(new AppiumFieldDecorator(driver, utilities.Constants.WAIT_UNTIL_DECORATOR), this);
     }
 
-    public MobileDriver<MobileElement> getDriver() {
-        return driver;
-    }
 }

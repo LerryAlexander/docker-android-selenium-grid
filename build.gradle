@@ -1,4 +1,4 @@
-plugins {
+    plugins {
     id 'java'
 }
 
@@ -20,7 +20,10 @@ dependencies {
 
     test{
         useTestNG(){
+            outputDirectory = file("tests-output/testngOutput")
+            useDefaultListeners = true
             suites 'testng.xml'
         }
+        reports.html.enabled = false
     }
 }

@@ -16,7 +16,9 @@ Also, this repository contains:
 - **Java** as programming language
 - **Appium** as mobile test framework
 
-***Note***: The example apk used in this project is provided from this repository: https://github.com/cloudgrey-io/the-app 
+***Note***: The example apk used in this project is downloaded from this repository: https://github.com/cloudgrey-io/the-app 
+
+#### PROJECT ARCHITECTURE ####
 
 > Docker + Selenium Grid Architecture
 
@@ -106,21 +108,22 @@ Since tests on Mac are running from the virtual machine it is neccessary to find
 2. See selenium grid console from web browser:
     - `http://<vm_ip_address_here>:4444/grid/console` (for example: `http://192.168.214.128:4444/grid/console`)
     
-    > Selenium grid console (reference image)
+ > Selenium grid console (reference image)
 
-    ![](images/grid-console-example.png)
+ ![](images/grid-console-example.png)
     
 3. See android emulators running from web browser:
+
     -  `http://<vm_ip_address_here>:6080/` (for example: `http://192.168.214.128:6080/` we get Samsung Galaxy S6 running on screen)
     -  `http://<vm_ip_address_here>:6081/` (for example: `http://192.168.214.128:6081/` we get Samsung Galaxy S10 running on screen)
 
-    > Samsung Galaxy S6 (Android Emulator V6.0)
+ > Samsung Galaxy S6 (Android Emulator V6.0)
     
-    ![](images/docker-android-samsung-galaxy6-example.png)
+ ![](images/docker-android-samsung-galaxy6-example.png)
     
-    > Samsung Galaxy S10 (Android Emulator V10.0)
+ > Samsung Galaxy S10 (Android Emulator V10.0)
     
-    ![](images/docker-android-samsung-galaxy-s10-example.png)
+ ![](images/docker-android-samsung-galaxy-s10-example.png)
     
 ## LINUX UBUNTU 18.04.4
 
@@ -157,25 +160,25 @@ From your local terminal:
 1. See selenium grid console from web browser:
     - `http://localhost:4444/grid/console`
     
-    > Selenium grid console 
+ > Selenium grid console 
 
-    ![](images/selenium-grid-console.png)
+ ![](images/selenium-grid-console.png)
     
 2. See android emulators running from web browser:
     -  `http://localhost:6080/` (we get Samsung Galaxy S6 running on screen)
-    -  `http://localhost:6081/` (we get Samsung Galaxy S7 running on screen)
+    -  `http://localhost:6081/` (we get Samsung Galaxy S10 running on screen)
     
-    > Samsung Galaxy S6 (Android Emulator V6.0)
+ > Samsung Galaxy S6 (Android Emulator V6.0)
     
-    ![](images/docker-android-samsung-galaxy-s6.png)
+ ![](images/docker-android-samsung-galaxy-s6.png)
     
-    > Samsung Galaxy S10 (Android Emulator V10.0)
+ > Samsung Galaxy S10 (Android Emulator V10.0)
     
-    ![](images/docker-android-samsung-galaxy-s10.png)
+ ![](images/docker-android-samsung-galaxy-s10.png)
 
-#### SEE TESTS RESULTS ###
+### SEE TESTS RESULTS 
 
-In order to see tests results we can check either TestNG reports and video executions from docker-android:
+In order to see tests results we can check either ***TestNG reports*** and ***video executions*** from docker-android:
 
 - Go to path `tests-output/testngOutput/` and from here we can check `index.html` and `emailable-report.html`
  

@@ -2,14 +2,14 @@ version: '3'
 
 services:
 
-  # test container service for running tests
+  # test container service for holding test automation project and running the tests
   test_container:
-    entrypoint: /bin/bash
-    command: -c "./gradlew clean test --debug"
+    entrypoint: /bin/sh
+    command: -c "./docker-resources/wait-for-grid.sh ./gradlew clean test"
     image: test_container
     container_name: test_container
     volumes:
-      - ./tests-output/testngOutput/:/docker_selenium_grid/tests-output/testngOutput/ #path to TestNG and gradle reports
+      - ./tests-output/testngOutput/:/docker_selenium_grid/tests-output/testngOutput/ #path to TestNG reports
     working_dir: "/docker_selenium_grid/"
     hostname: test_container_hostname
     networks:
@@ -20,8 +20,8 @@ services:
           - node_samsung_s10
     depends_on:
       - selenium_hub
-      - node_samsung_s6
-      - node_samsung_s10
+      #- node_samsung_s6
+      #- node_samsung_s10
     environment:
       - DOCKER_SELENIUM_PORT=4444
       - DOCKER_SELENIUM_HOST=selenium_hub
@@ -39,7 +39,7 @@ services:
     ports:
       - "4444:4444"
 
-  # Using Appium Docker Android
+  # Service for Docker Android (Samsung Galaxy S6)
   node_samsung_s6:
     image: budtmo/docker-android-x86-6.0
     privileged: true
@@ -54,8 +54,8 @@ services:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-samsung-galaxy-s10:/tmp/video
-      - ./check_docker_android_device.sh:/root/check_docker_android_device.sh
+      - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video # path to tests video execution
+      - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
@@ -65,13 +65,13 @@ services:
       - AUTO_RECORD=true
     healthcheck:
       test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
-      interval: 30s
+      interval: 60s
       timeout: 30s
       retries: 3
     labels:
       autoheal: "true"  # allow docker-autoheal to restart if unhealthy
 
-  # Using Appium Docker Android
+  # Service for Docker Android (Samsung Galaxy S10)
   node_samsung_s10:
     image: budtmo/docker-android-x86-10.0
     privileged: true
@@ -86,8 +86,8 @@ services:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video
-      - ./check_docker_android_device.sh:/root/check_docker_android_device.sh
+      - ./tests-output/video/video-samsung-galaxy-s10:/tmp/video # path to tests video execution
+      - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
     environment:
       - DEVICE=Samsung Galaxy S10
       - CONNECT_TO_GRID=true
@@ -97,7 +97,7 @@ services:
       - AUTO_RECORD=true
     healthcheck:
       test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
-      interval: 30s
+      interval: 60s
       timeout: 30s
       retries: 3
     labels:

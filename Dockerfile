@@ -8,5 +8,6 @@ RUN adduser gradle sudo && \
     apt-get -y install sudo && \
     ./gradlew build -x test && \
     sudo apt-get update -y && \
-    sudo apt-get install -y jq
+    sudo apt-get install -y jq && \
+    curl -sSL https://get.docker.com/ | sh
 ENTRYPOINT ["/bin/sh"]

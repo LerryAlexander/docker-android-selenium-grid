@@ -16,8 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build test_container docker image
+      - name: Build docker image
         run: docker build -t test_container .
       
       - name: Run android UI tests
-        run: docker-compose up -d 
+        run: docker-compose up 

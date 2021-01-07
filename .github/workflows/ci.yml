@@ -1,7 +1,6 @@
 # This workflow build a docker image that contains Java with Gradle and run the android automated tests with docker-compose command 
 name: CI
 
-# Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -9,19 +8,18 @@ on:
   pull_request:
     branches: [ master ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v2
 
       - name: Build container-test docker image
         run: docker build -t container-test .
-
-      - name: Run docker-compose
-        run: docker-compose up -d
+  test:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - run: docker-compose up -d -y

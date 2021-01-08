@@ -11,5 +11,4 @@ while ! curl -sSL "http://"$DOCKER_SELENIUM_HOST":"$DOCKER_SELENIUM_PORT"/wd/hub
     sleep 1
 done
 
->&2 echo "Selenium Grid is up - executing tests"
-exec $cmd
+>&2 echo "Selenium Grid is up"

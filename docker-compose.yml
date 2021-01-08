@@ -72,8 +72,8 @@ services:
       interval: 60s
       timeout: 30s
       retries: 3
-    labels:
-      autoheal: "true"  # allow docker-autoheal to restart if unhealthy
+    #labels:
+      #autoheal: "true"  # allow docker-autoheal to restart if unhealthy
 
   # Service for Docker Android (Samsung Galaxy S10)
   node_samsung_s10:
@@ -105,19 +105,19 @@ services:
       interval: 60s
       timeout: 30s
       retries: 3
-    labels:
-      autoheal: "true"  # allow docker-autoheal to restart if unhealthy
+    #labels:
+      #autoheal: "true"  # allow docker-autoheal to restart if unhealthy
 
-  autoheal:
-    restart: always
-    image: willfarrell/autoheal
-    environment:
-      - AUTOHEAL_CONTAINER_LABEL=all
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    depends_on:
-      - node_samsung_s6
-      - node_samsung_s10
+    #autoheal:
+    #restart: always
+    #image: willfarrell/autoheal
+        #environment:
+      #- AUTOHEAL_CONTAINER_LABEL=all
+        #volumes:
+      #- /var/run/docker.sock:/var/run/docker.sock
+        #depends_on:
+        #- node_samsung_s6
+      #- node_samsung_s10s
 
 networks:
   docker_network:

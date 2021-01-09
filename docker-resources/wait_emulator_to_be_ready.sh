@@ -8,9 +8,10 @@
     docker --version
     docker exec $DOCKER_EMULATOR_SAMSUNG_S6 adb devices
     docker exec $DOCKER_EMULATOR_SAMSUNG_S10 adb devices
-    echo "wait for device test"
-    docker exec "$DOCKER_EMULATOR_SAMSUNG_S6" adb wait-for-device shell getprop sys.boot_completed | tr -d '\r'
-    docker exec "$DOCKER_EMULATOR_SAMSUNG_S10" adb wait-for-device shell getprop sys.boot_completed | tr -d '\r'
+    echo "validate with node_samsung_s6"
+    docker exec node_samsung_s6 adb wait-for-device shell getprop sys.boot_completed | tr -d '\r'
+    echo "validate with DOCKER_EMULATOR_SAMSUNG_S10"
+    docker exec $DOCKER_EMULATOR_SAMSUNG_S10 adb wait-for-device shell getprop sys.boot_completed | tr -d '\r'
     statusS6="1"
     # $(docker exec "$DOCKER_EMULATOR_SAMSUNG_S6" adb wait-for-device shell getprop sys.boot_completed | tr -d '\r')
     echo "validate estatus s10"

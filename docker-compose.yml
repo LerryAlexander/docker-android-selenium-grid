@@ -69,7 +69,7 @@ services:
 
   # Service for Docker Android (Samsung Galaxy S10)
   node_samsung_s10:
-    image: budtmo/docker-android-x86-10.0
+    image: budtmo/docker-android-x86-8.0
     container_name: samsung_s10_container
     privileged: true
     networks:

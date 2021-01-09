@@ -20,8 +20,14 @@
     docker exec $DOCKER_EMULATOR_SAMSUNG_S6 adb get-state
     echo "hace adb get-state en samsung 10"
     docker exec $DOCKER_EMULATOR_SAMSUNG_S10 adb get-state
-    #echo "validate with DOCKER_EMULATOR_SAMSUNG_S6"
-    #docker exec $DOCKER_EMULATOR_SAMSUNG_S6 adb wait-for-device
+    echo "hace which emulator en samsung 6"
+    docker exec $DOCKER_EMULATOR_SAMSUNG_S6 which emulator
+    echo "hace which emulator en samsung 10"
+    docker exec $DOCKER_EMULATOR_SAMSUNG_S10 which emulator
+    echo "/root/emulator/emulator -avd en samsung 6"
+    docker exec $DOCKER_EMULATOR_SAMSUNG_S6 /root/emulator/emulator -avd Samsung Galaxy S6
+    echo "/root/emulator/emulator -avd en samsung 10"
+    docker exec $DOCKER_EMULATOR_SAMSUNG_S10 /root/emulator/emulator -avd Samsung Galaxy S10
     echo "hace wait-for-device en samsung 10"
     docker exec $DOCKER_EMULATOR_SAMSUNG_S10 adb wait-for-device shell getprop sys.boot_completed | tr -d '\r'
     statusS6="1"

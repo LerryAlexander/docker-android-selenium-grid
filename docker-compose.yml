@@ -6,8 +6,9 @@ services:
   test_container:
     entrypoint: /bin/sh
     command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/wait_emulator_to_be_ready.sh && ./gradlew clean test" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
-    image: test_container
-    container_name: test_container
+    image: framework_container
+    container_name: test-container
+    privileged: true
     volumes:
       - ./tests-output/testngOutput/:/docker_selenium_grid/tests-output/testngOutput/ #path to TestNG reports
       - /var/run/docker.sock:/var/run/docker.sock
@@ -28,7 +29,7 @@ services:
 
   # Selenium hub
   selenium_hub:
-    image: selenium/hub
+    image: selenium/hub:3.14.0-curium
     container_name: selenium-hub
     hostname: selenium-hub
     networks:

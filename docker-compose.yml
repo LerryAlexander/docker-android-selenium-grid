@@ -14,15 +14,9 @@ services:
     working_dir: "/docker_selenium_grid/"
     hostname: test_container_hostname
     networks:
-      docker_network:
-        aliases:
-          - selenium_hub
-          - node_samsung_s6
-          - node_samsung_s10
+      - docker_network
     depends_on:
       - selenium_hub
-      #- node_samsung_s6
-      #- node_samsung_s10
     environment:
       - DOCKER_SELENIUM_PORT=4444
       - DOCKER_SELENIUM_HOST=selenium_hub

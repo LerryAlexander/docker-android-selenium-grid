@@ -49,8 +49,6 @@ services:
     ports:
       - "6080:6080"
     volumes:
-      - /dev/bus/usb:/dev/bus/usb
-      - ~/.android:/root/.android
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video # path to tests video execution
       - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
@@ -81,8 +79,6 @@ services:
     ports:
       - "6081:6080"
     volumes:
-      - /dev/bus/usb:/dev/bus/usb
-      - ~/.android:/root/.android
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-samsung-galaxy-s10:/tmp/video # path to tests video execution
       - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh

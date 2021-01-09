@@ -43,7 +43,9 @@ services:
   node_samsung_s6:
     image: budtmo/docker-android-x86-6.0
     container_name: samsung_s6_container
-    privileged: true
+    #privileged: true
+    devices:
+      - "/dev/kvm"
     networks:
       - docker_network
     depends_on:
@@ -73,7 +75,9 @@ services:
   node_samsung_s10:
     image: budtmo/docker-android-x86-8.0
     container_name: samsung_s10_container
-    privileged: true
+    #privileged: true
+    devices:
+      - "/dev/kvm"
     networks:
       - docker_network
     depends_on:

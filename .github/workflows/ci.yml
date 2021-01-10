@@ -22,5 +22,10 @@ jobs:
       - name: Build docker image
         run: docker build -t framework_container .
       
+      - name: Install docker-compose
+        run: |
+          apk add --no-cache docker-compose
+          docker-compose --version
+      
       - name: Run android UI tests
         run: docker-compose up 

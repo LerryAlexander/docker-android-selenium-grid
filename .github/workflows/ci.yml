@@ -29,7 +29,8 @@ jobs:
       
       - name: Run android UI tests
         run: docker-compose up
+
+      - name: Archive testa coverage results
         uses: actions/upload-artifact@v2
         with:
-          name: tests reports
           path: tests-output/

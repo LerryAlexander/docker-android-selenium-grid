@@ -13,12 +13,19 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+    container:
+      image:  docker:19.03.12
     steps:
       - uses: actions/checkout@v2
 
       - name: Build docker image
         run: docker build -t framework_container .
+      
+      - name: Install docker-compose
+        run: |
+          apk add --no-cache docker-compose
+          docker-compose --version
       
       - name: Run android UI tests
         run: docker-compose up

@@ -21,4 +21,8 @@ jobs:
         run: docker build -t framework_container .
       
       - name: Run android UI tests
-        run: docker-compose up 
+        run: docker-compose up
+        uses: actions/upload-artifact@v2
+          with:
+            name: tests reports
+            path: tests-output/

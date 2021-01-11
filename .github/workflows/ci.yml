@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     container:
       image:  docker:19.03.12
@@ -30,7 +30,7 @@ jobs:
       - name: Run android UI tests
         run: docker-compose up
 
-      - name: Archive testa coverage results
+      - name: Archive tests results
         uses: actions/upload-artifact@v2
         with:
           path: tests-output/

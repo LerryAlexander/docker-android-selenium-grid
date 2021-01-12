@@ -14,23 +14,33 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
+    #container:
+      #image:  docker:19.03.12
     steps:
       - uses: actions/checkout@v2
 
       - name: Build docker image
         run: docker build -t framework_container .
-      
-      - name: Install docker-compose
-        run: |
-          apk add --no-cache docker-compose
-          docker-compose --version
-      
+
+      - name: Run Android Samsung Galaxy S6
+        run: docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name samsung_s6_container budtmo/docker-android-x86-6.0
+
+      - name: Run Android Samsung Galaxy S10
+        run: docker run --privileged -d -p 6081:6080 -p 5552:5552 -p 5553:5553 -e DEVICE="Samsung Galaxy S10" --name samsung_s10_container budtmo/docker-android-x86-8.0
+
       - name: Run android UI tests
-        run: docker-compose up
+        run: docker-compose up test_container
+
+      #- name: Install docker-compose
+          #run: |
+          #apk add --no-cache docker-compose
+        #docker-compose --version
+      
+      #- name: Run android UI tests
+          #run: docker-compose up
               
-        if: ${{ always() }}
-      - name: Archive tests results
-        uses: actions/upload-artifact@v2
-        with:
-          path: tests-output/
+        #if: ${{ always() }}
+        #- name: Archive tests results
+        #uses: actions/upload-artifact@v2
+          #with:
+        #path: tests-output/

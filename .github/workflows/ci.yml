@@ -28,7 +28,7 @@ jobs:
           docker-compose --version
       
       - name: Run android UI tests
-        run: docker-compose up -d
+        run: docker-compose up
               
         if: ${{ always() }}
       - name: Archive tests results

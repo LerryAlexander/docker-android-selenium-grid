@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Installing KVM on "$DOCKER_EMULATOR_SAMSUNG_S6
-docker exec -ti $DOCKER_EMULATOR_SAMSUNG_S6 sh -c "apt-get update -y
+docker exec $DOCKER_EMULATOR_SAMSUNG_S6 sh -c "apt-get update -y
 apt-get install qemu -y
 qemu-system-x86_64
 qemu-system-x86_64 \
@@ -13,7 +13,7 @@ qemu-system-x86_64 \
 ;"
 
 echo "Installing KVM on "$DOCKER_EMULATOR_SAMSUNG_S10
-docker exec -ti $DOCKER_EMULATOR_SAMSUNG_S10 sh -c "apt-get update -y
+docker exec $DOCKER_EMULATOR_SAMSUNG_S10 sh -c "apt-get update -y
 apt-get install qemu -y
 qemu-system-x86_64
 qemu-system-x86_64 \

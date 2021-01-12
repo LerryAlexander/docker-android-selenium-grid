@@ -5,7 +5,7 @@ services:
   # test container service for holding test automation project and running the tests
   test_container:
     entrypoint: /bin/sh
-    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/check_emulator_container.sh && ./gradlew clean test" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
+    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/install_kvm.sh && ./docker-resources/check_emulator_container.sh && ./gradlew clean test" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
     image: framework_container
     container_name: test-container
     privileged: true
@@ -44,8 +44,6 @@ services:
     image: budtmo/docker-android-x86-6.0
     container_name: samsung_s6_container
     privileged: true
-    devices:
-      - "/dev/kvm:/dev/kvm"
     networks:
       - docker_network
     depends_on:
@@ -76,8 +74,6 @@ services:
     image: budtmo/docker-android-x86-8.0
     container_name: samsung_s10_container
     privileged: true
-    devices:
-      - "/dev/kvm:/dev/kvm"
     networks:
       - docker_network
     depends_on:

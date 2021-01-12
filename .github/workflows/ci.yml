@@ -30,6 +30,9 @@ jobs:
       - name: Run android UI tests
         run: docker-compose up -d
         
+      - name: Check running containers
+        run: docker ps -a
+              
         if: ${{ always() }}
       - name: Archive tests results
         uses: actions/upload-artifact@v2

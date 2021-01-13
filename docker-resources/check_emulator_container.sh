@@ -1,9 +1,9 @@
 #!/bin/bash
 
   healthy_status=false
-  docker exec $DOCKER_EMULATOR_SAMSUNG_S6 /root/emulator/emulator -avd Samsung Galaxy S6
+  docker exec $DOCKER_EMULATOR_SAMSUNG_S6 /root/emulator/emulator -avd samsung_galaxy_s6_6.0
   docker exec $DOCKER_EMULATOR_SAMSUNG_S6 /root/emulator/emulator -list-avds
-  docker exec $DOCKER_EMULATOR_SAMSUNG_S10 /root/emulator/emulator -avd Samsung Galaxy S10
+  docker exec $DOCKER_EMULATOR_SAMSUNG_S10 /root/emulator/emulator -avd samsung_galaxy_s10_8.0
   docker exec $DOCKER_EMULATOR_SAMSUNG_S10 /root/emulator/emulator -list-avds
   while [ "$healthy_status" == false ]; do
     statusS6=$(docker inspect --format='{{json .State.Health}}' samsung_s6_container | grep -n '"Status":"healthy"')

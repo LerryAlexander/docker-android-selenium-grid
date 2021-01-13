@@ -22,14 +22,14 @@ jobs:
       #- name: Build docker image
         #run: docker build -t framework_container .
 
-        - name: Run Android Samsung Galaxy S6
-          run: docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name samsung_s6_container budtmo/docker-android-x86-6.0
+      - name: Run Android Samsung Galaxy S6
+        run: docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name samsung_s6_container budtmo/docker-android-x86-6.0
 
-        - name: Run Android Samsung Galaxy S10
-          run: docker run --privileged -d -p 6081:6080 -p 5552:5552 -p 5553:5553 -e DEVICE="Samsung Galaxy S10" --name samsung_s10_container budtmo/docker-android-x86-8.0
+      - name: Run Android Samsung Galaxy S10
+        run: docker run --privileged -d -p 6081:6080 -p 5552:5552 -p 5553:5553 -e DEVICE="Samsung Galaxy S10" --name samsung_s10_container budtmo/docker-android-x86-8.0
 
-        - name: Check android emulators
-          run: ./docker-resources/check_emulator_container.sh
+      - name: Check android emulators
+        run: ./docker-resources/check_emulator_container.sh
         #- name: Run android UI tests
           #run: docker-compose up test_container
 

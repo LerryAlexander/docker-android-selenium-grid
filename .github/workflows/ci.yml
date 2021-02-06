@@ -23,6 +23,7 @@ jobs:
         #run: docker build -t framework_container .
       - name: Installing KVM
         run: |
+          sudo /usr/sbin/kvm-ok
           sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
           sudo /usr/sbin/kvm-ok
 

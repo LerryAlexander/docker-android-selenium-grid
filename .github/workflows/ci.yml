@@ -23,9 +23,9 @@ jobs:
         #run: docker build -t framework_container .
       - name: Installing KVM
         run: |
-          kvm-ok
           sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
-          kvm-ok
+          sudo /usr/sbin/kvm-ok
+          sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
 
       #- name: Run Android Samsung Galaxy S6
         #run: docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name samsung_s6_container budtmo/docker-android-x86-6.0

@@ -24,10 +24,8 @@ jobs:
       - name: Installing KVM
         run: |
         #sudo apt install qemu qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virt-manager
-        sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
-        #sudo systemctl enable libvirtd.service
-        #sudo systemctl enable virtlogd.service
-        sudo modprobe kvm
+          sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+          sudo modprobe kvm
 
       #- name: Run Android Samsung Galaxy S6
         #run: docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name samsung_s6_container budtmo/docker-android-x86-6.0

@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import utilities.Constants;
 import utilities.DriverCapabilities;

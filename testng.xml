@@ -3,7 +3,7 @@
 <suite name="Docker and Selenium Grid Test-Suite" parallel="tests" thread-count="4">
     <test name="Test on Samsung Galaxy S10">
         <parameter name="platform" value="Android"></parameter>
-        <parameter name="platformVersion" value="10.0"></parameter>
+        <parameter name="platformVersion" value="8.0"></parameter>
         <parameter name="deviceName" value="Samsung Galaxy S10"></parameter>
         <classes>
             <class name="TestRunner"/>

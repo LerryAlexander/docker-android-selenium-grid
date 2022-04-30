@@ -5,7 +5,7 @@ services:
   # test container service for holding test automation project and running the tests
   test_container:
     entrypoint: /bin/sh
-    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/check_emulator_container.sh && ./mvn clean test -DsuiteXmlFile=testng.xml" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
+    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/wait_emulator_to_be_ready.sh && ./mvn clean test -DsuiteXmlFile=testng.xml" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
     image: framework_container
     container_name: test-container
     privileged: true
@@ -53,7 +53,7 @@ services:
     volumes:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video # path to tests video execution
-      - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
+      #- ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
@@ -61,11 +61,11 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
-    healthcheck:
-      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
-      interval: 60s
-      timeout: 30s
-      retries: 3
+#    healthcheck:
+#      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
+#      interval: 60s
+#      timeout: 30s
+#      retries: 3
     #labels:
       #autoheal: "true"  # allow docker-autoheal to restart if unhealthy
 
@@ -83,7 +83,7 @@ services:
     volumes:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-samsung-galaxy-s10:/tmp/video # path to tests video execution
-      - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
+      #- ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
     environment:
       - DEVICE=Samsung Galaxy S10
       - CONNECT_TO_GRID=true
@@ -91,11 +91,11 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
-    healthcheck:
-      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
-      interval: 60s
-      timeout: 30s
-      retries: 3
+#    healthcheck:
+#      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
+#      interval: 60s
+#      timeout: 30s
+#      retries: 3
     #labels:
       #autoheal: "true"  # allow docker-autoheal to restart if unhealthy
 

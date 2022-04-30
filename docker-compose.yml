@@ -61,7 +61,7 @@ services:
       - AUTO_RECORD=true
 
   # Service for Docker Android (Nexus 4)
-  node_nexus_5:
+  node_nexus_4:
     image: budtmo/docker-android-x86-7.0
     container_name: nexus_4_container
     privileged: true

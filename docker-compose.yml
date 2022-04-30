@@ -19,12 +19,12 @@ services:
     depends_on:
       - selenium_hub
       - node_samsung_s6
-      - node_nexus_5
+      - node_nexus_4
     environment:
       - DOCKER_SELENIUM_PORT=4444
       - DOCKER_SELENIUM_HOST=selenium_hub
       - DOCKER_EMULATOR_SAMSUNG_S6=samsung_s6_container
-      - DOCKER_EMULATOR_NEXUS_5=nexus_5_container
+      - DOCKER_EMULATOR_NEXUS_4=nexus_4_container
     ports:
       - "8000:8000"
 
@@ -60,10 +60,10 @@ services:
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
 
-  # Service for Docker Android (Nexus 5)
+  # Service for Docker Android (Nexus 4)
   node_nexus_5:
-    image: budtmo/docker-android-x86-8.0
-    container_name: nexus_5_container
+    image: budtmo/docker-android-x86-7.0
+    container_name: nexus_4_container
     privileged: true
     networks:
       - docker_network
@@ -73,9 +73,9 @@ services:
       - "6081:6080"
     volumes:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-nexus-5:/tmp/video # path to tests video execution
+      - ./tests-output/video/video-nexus-4:/tmp/video # path to tests video execution
     environment:
-      - DEVICE=Nexus 5
+      - DEVICE=Nexus 4
       - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub

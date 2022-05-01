@@ -30,9 +30,7 @@ public class Hooks {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", driverCapabilities.getPlatform());
         caps.setCapability("platformVersion", driverCapabilities.getPlatformVersion());
-        //caps.setCapability("appPackage", "io.cloudgrey.the_app");
-        //caps.setCapability("appActivity", "io.cloudgrey.the_app.MainActivity");
-        caps.setCapability("avd", driverCapabilities.getDeviceName());
+        //caps.setCapability("avd", driverCapabilities.getDeviceName());
         caps.setCapability("appium:uiautomator2ServerInstallTimeout", 60000);
         caps.setCapability("automationName", "UiAutomator2");
         caps.setCapability("app", Constants.APP_CONTAINER_PATH);

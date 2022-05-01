@@ -29,8 +29,8 @@ public class Hooks {
     public boolean initDriver(DriverCapabilities driverCapabilities) throws Exception {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", driverCapabilities.getPlatform());
-        caps.setCapability("platformVersion", driverCapabilities.getPlatformVersion());
-        caps.setCapability("browserName", driverCapabilities.getDeviceName());
+        //caps.setCapability("platformVersion", driverCapabilities.getPlatformVersion());
+        caps.setCapability("deviceName", driverCapabilities.getDeviceName());
         //caps.setCapability("appium:uiautomator2ServerInstallTimeout", 60000);
         caps.setCapability("automationName", "UiAutomator2");
         caps.setCapability("app", Constants.APP_CONTAINER_PATH);

@@ -4,7 +4,7 @@
     <test name="Test on Nexus 4">
         <parameter name="platform" value="Android"></parameter>
         <parameter name="platformVersion" value="7.0"></parameter>
-        <parameter name="deviceName" value="Nexus 4"></parameter>
+        <parameter name="deviceName" value="nexus_4_7.0"></parameter>
         <classes>
             <class name="TestRunner"/>
         </classes>
@@ -12,7 +12,7 @@
     <test name="Test on Samsung Galaxy S6">
         <parameter name="platform" value="Android"></parameter>
         <parameter name="platformVersion" value="6.0"></parameter>
-        <parameter name="deviceName" value="Samsung Galaxy S6"></parameter>
+        <parameter name="deviceName" value="samsung_galaxy_s6_6.0"></parameter>
         <classes>
             <class name="TestRunner"/>
         </classes>

@@ -32,7 +32,8 @@ public class Hooks {
         caps.setCapability("platformVersion", driverCapabilities.getPlatformVersion());
         //caps.setCapability("appPackage", "io.cloudgrey.the_app");
         //caps.setCapability("appActivity", "io.cloudgrey.the_app.MainActivity");
-        //caps.setCapability("deviceName", driverCapabilities.getDeviceName());
+        caps.setCapability("avd", driverCapabilities.getDeviceName());
+        caps.setCapability("uiautomator2ServerInstallTimeout", 60000);
         caps.setCapability("automationName", "UiAutomator2");
         caps.setCapability("app", Constants.APP_CONTAINER_PATH);
         caps.setCapability("noSign", true);

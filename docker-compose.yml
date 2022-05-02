@@ -82,5 +82,5 @@ services:
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
 
-  networks:
-    docker_network:
+networks:
+  docker_network:

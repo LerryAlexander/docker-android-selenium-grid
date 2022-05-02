@@ -58,7 +58,6 @@
                         <suiteXmlFiles>
                             <!-- pass testng.xml files as argument from command line, for example: mvn clean test -DsuiteXmlFile=testng.xml-->
                             <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-                            <reportsDirectory>tests-output/testngOutput</reportsDirectory>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>

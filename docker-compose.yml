@@ -75,7 +75,7 @@ services:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-tablet:/tmp/video # path to tests video execution
     environment:
-      - DEVICE=Pixel C
+      - DEVICE=Nexus 10
       - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub

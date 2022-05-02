@@ -4,7 +4,7 @@
     <test name="Test on Tablet device">
         <parameter name="platform" value="Android"></parameter>
         <parameter name="platformVersion" value="7.0"></parameter>
-        <parameter name="deviceName" value="Pixel C"></parameter>
+        <parameter name="deviceName" value="Nexus 10"></parameter>
         <classes>
             <class name="TestRunner"/>
         </classes>

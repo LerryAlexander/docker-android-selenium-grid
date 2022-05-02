@@ -2,14 +2,14 @@
 
   boot_completed=false
   while [ "$boot_completed" == false ]; do
-    statusS6=$(docker exec "$DOCKER_EMULATOR_SAMSUNG_S6" adb wait-for-device shell getprop sys.boot_completed | tr -d '\r')
-    statusN4=$(docker exec "$DOCKER_EMULATOR_NEXUS_4" adb wait-for-device shell getprop sys.boot_completed | tr -d '\r')
-    if [ "$statusS6" == "1" ] && [ "$statusN4" == "1" ]; then
+    statusPhone=$(docker exec "$DOCKER_EMULATOR_PHONE" adb wait-for-device shell getprop sys.boot_completed | tr -d '\r')
+    statusTablet=$(docker exec "$DOCKER_EMULATOR_TABLET" adb wait-for-device shell getprop sys.boot_completed | tr -d '\r')
+    if [ "$statusPhone" == "1" ] && [ "$statusTablet" == "1" ]; then
       boot_completed=true
-      echo "emulators are ready"
+      echo "devices are ready !!"
       echo "executing tests..."
     else
-      echo "waiting for emulators to be ready"
+      echo "waiting for devices to be ready"
       sleep 1
     fi
   done

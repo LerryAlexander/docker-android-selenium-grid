@@ -5,7 +5,7 @@ services:
   # test container service for holding test automation project and running the tests
   test_container:
     entrypoint: /bin/sh
-    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/wait_emulator_to_be_ready.sh && mvn clean test -DsuiteXmlFile=testng.xml" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
+    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/wait_emulator_to_be_ready.sh && mvn clean test -DsuiteXmlFile=testng.xml" #wait for grid to be ready, then wait until devices are up and running and then execute the tests
     image: framework_container
     container_name: test-container
     privileged: true
@@ -18,13 +18,13 @@ services:
       - docker_network
     depends_on:
       - selenium_hub
-      - node_samsung_s6
-      - node_nexus_4
+      - node_phone
+      - node_tablet
     environment:
       - DOCKER_SELENIUM_PORT=4444
       - DOCKER_SELENIUM_HOST=selenium_hub
-      - DOCKER_EMULATOR_SAMSUNG_S6=samsung_s6_container
-      - DOCKER_EMULATOR_NEXUS_4=nexus_4_container
+      - DOCKER_EMULATOR_PHONE=phone_container
+      - DOCKER_EMULATOR_TABLET=tablet_container
     ports:
       - "8000:8000"
 
@@ -38,10 +38,10 @@ services:
     ports:
       - "4444:4444"
 
-  # Service for Docker Android (Samsung Galaxy S6)
-  node_samsung_s6:
+  # Service for Docker Android (Phone device)
+  node_phone:
     image: budtmo/docker-android-x86-6.0
-    container_name: samsung_s6_container
+    container_name: phone_container
     privileged: true
     networks:
       - docker_network
@@ -51,7 +51,7 @@ services:
       - "6080:6080"
     volumes:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video # path to tests video execution
+      - ./tests-output/video/video-phone:/tmp/video # path to tests video execution
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
@@ -60,10 +60,10 @@ services:
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
 
-  # Service for Docker Android (Nexus 4)
-  node_nexus_4:
+  # Service for Docker Android (Tablet device)
+  node_tablet:
     image: budtmo/docker-android-x86-7.0
-    container_name: nexus_4_container
+    container_name: tablet_container
     privileged: true
     networks:
       - docker_network
@@ -73,16 +73,14 @@ services:
       - "6081:6080"
     volumes:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-nexus-4:/tmp/video # path to tests video execution
+      - ./tests-output/video/video-tablet:/tmp/video # path to tests video execution
     environment:
-      - DEVICE=Nexus 4
+      - DEVICE=Pixel C
       - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
 
-networks:
-  docker_network:
-
-
+  networks:
+    docker_network:

@@ -95,7 +95,7 @@ In this case we are going to do it from local terminal since not opening VMware 
 3. Go to your shared local root project folder:
     - Run: `cd /mnt/hgfs/docker-android-selenium-grid/`
 4. Create a docker base image based on the **Dockerfile** which will contain **gradle 5.2.1** and **Java 8** for running android tests. This image will also store the entire source code from **docker-android-selenium-grid**.
-    - Run: `docker build -t test_container .`
+    - Run: `docker build -t framework_container .`
 5. Run automated tests:
     - `docker-compose up -d`
 
@@ -150,7 +150,7 @@ From your local terminal:
 1. Go to the project root folder:
     - Run: `cd ~/<path_to_your_root_project_folder>/docker-android-selenium-grid/` (for example, in my case is `cd ~/eclipse-workspace/bfcl_e2e_automation/`)
 2. Create a docker base image basd on the **Dockerfile** which will contain **gradle 5.2.1** and **Java 8** for running android tests. This image will also store the entire source code from **docker-android-selenium-grid/**
-    - Run: `sudo docker build -t container-test .` 
+    - Run: `sudo docker build -t framework_container .` 
     **Note:** This execution will take a few minutes since it is creating the image for running the tests.
 3. Run automated tests:
     - `sudo docker-compose up -d`

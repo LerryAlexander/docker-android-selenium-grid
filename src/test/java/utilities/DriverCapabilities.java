@@ -3,7 +3,6 @@ package utilities;
 public class DriverCapabilities {
 
     private String platform;
-    private String platformVersion;
     private String deviceName;
 
     public String getPlatform() {
@@ -12,14 +11,6 @@ public class DriverCapabilities {
 
     public void setPlatform(String platform) {
         this.platform = platform;
-    }
-
-    public String getPlatformVersion() {
-        return platformVersion;
-    }
-
-    public void setPlatformVersion(String platformVersion) {
-        this.platformVersion = platformVersion;
     }
 
     public String getDeviceName() {

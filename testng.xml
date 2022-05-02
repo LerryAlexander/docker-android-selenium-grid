@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Docker and Selenium Grid Test-Suite" parallel="tests" thread-count="4">
-    <test name="Test on Samsung Galaxy S10">
+    <test name="Test on Tablet device">
         <parameter name="platform" value="Android"></parameter>
-        <parameter name="platformVersion" value="10.0"></parameter>
-        <parameter name="deviceName" value="Samsung Galaxy S10"></parameter>
+        <parameter name="deviceName" value="Nexus 10"></parameter>
         <classes>
             <class name="TestRunner"/>
         </classes>
     </test>
-    <test name="Test on Samsung Galaxy S6">
+    <test name="Test on Phone device">
         <parameter name="platform" value="Android"></parameter>
-        <parameter name="platformVersion" value="6.0"></parameter>
         <parameter name="deviceName" value="Samsung Galaxy S6"></parameter>
         <classes>
             <class name="TestRunner"/>

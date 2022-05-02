@@ -5,7 +5,7 @@ services:
   # test container service for holding test automation project and running the tests
   test_container:
     entrypoint: /bin/sh
-    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/check_emulator_container.sh && ./gradlew clean test" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
+    command: -c "./docker-resources/wait-for-grid.sh && ./docker-resources/wait_emulator_to_be_ready.sh && ./gradlew clean test" #wait for grid to be ready, then wait until emulators are up and running and then execute the tests
     image: framework_container
     container_name: test-container
     privileged: true
@@ -18,16 +18,15 @@ services:
       - docker_network
     depends_on:
       - selenium_hub
-      - node_samsung_s6
-      - node_samsung_s10
+      - node_phone
+      - node_tablet
     environment:
       - DOCKER_SELENIUM_PORT=4444
       - DOCKER_SELENIUM_HOST=selenium_hub
-      - DOCKER_EMULATOR_SAMSUNG_S6=samsung_s6_container
-      - DOCKER_EMULATOR_SAMSUNG_S10=samsung_s10_container
+      - DOCKER_EMULATOR_PHONE=phone_container
+      - DOCKER_EMULATOR_TABLET=tablet_container
     ports:
       - "8000:8000"
-    #restart: on-failure
 
   # Selenium hub
   selenium_hub:
@@ -39,10 +38,10 @@ services:
     ports:
       - "4444:4444"
 
-  # Service for Docker Android (Samsung Galaxy S6)
-  node_samsung_s6:
+  # Service for Docker Android (Phone device)
+  node_phone:
     image: budtmo/docker-android-x86-6.0
-    container_name: samsung_s6_container
+    container_name: phone_container
     privileged: true
     networks:
       - docker_network
@@ -52,8 +51,7 @@ services:
       - "6080:6080"
     volumes:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-samsung-galaxy-s6:/tmp/video # path to tests video execution
-      - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
+      - ./tests-output/video/video-phone:/tmp/video # path to tests video execution
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
@@ -61,18 +59,11 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
-    healthcheck:
-      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
-      interval: 60s
-      timeout: 30s
-      retries: 3
-    #labels:
-      #autoheal: "true"  # allow docker-autoheal to restart if unhealthy
 
-  # Service for Docker Android (Samsung Galaxy S10)
-  node_samsung_s10:
-    image: budtmo/docker-android-x86-8.0
-    container_name: samsung_s10_container
+  # Service for Docker Android (Tablet device)
+  node_tablet:
+    image: budtmo/docker-android-x86-7.0
+    container_name: tablet_container
     privileged: true
     networks:
       - docker_network
@@ -82,35 +73,14 @@ services:
       - "6081:6080"
     volumes:
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
-      - ./tests-output/video/video-samsung-galaxy-s10:/tmp/video # path to tests video execution
-      - ./docker-resources/check_docker_android_device.sh:/root/check_docker_android_device.sh
+      - ./tests-output/video/video-tablet:/tmp/video # path to tests video execution
     environment:
-      - DEVICE=Samsung Galaxy S10
+      - DEVICE=Nexus 10
       - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
-    healthcheck:
-      test: ["CMD-SHELL", "/root/check_docker_android_device.sh"]
-      interval: 60s
-      timeout: 30s
-      retries: 3
-    #labels:
-      #autoheal: "true"  # allow docker-autoheal to restart if unhealthy
-
-    #autoheal:
-    #restart: always
-    #image: willfarrell/autoheal
-        #environment:
-      #- AUTOHEAL_CONTAINER_LABEL=all
-        #volumes:
-      #- /var/run/docker.sock:/var/run/docker.sock
-        #depends_on:
-        #- node_samsung_s6
-      #- node_samsung_s10s
 
 networks:
   docker_network:
-
-

@@ -79,8 +79,8 @@ function enable_proxy_if_needed () {
 
 function check_emulator_popups() {
         echo "Waiting for device..."
+        wait_emulator_to_be_ready
         $ANDROID_HOME/platform-tools/adb wait-for-device shell true
-        echo "Android is booting..."
 
         EMU_BOOTED=0
         n=0
@@ -88,7 +88,6 @@ function check_emulator_popups() {
         echo 1 > /tmp/failed
         while [[ $EMU_BOOTED = 0 ]];do
             echo "Test for current focus"
-            #        $ANDROID_HOME/platform-tools/adb shell dumpsys window
             CURRENT_FOCUS=`$ANDROID_HOME/platform-tools/adb shell dumpsys window 2>/dev/null | grep -i mCurrentFocus`
             echo "Current focus: ${CURRENT_FOCUS}"
             case $CURRENT_FOCUS in

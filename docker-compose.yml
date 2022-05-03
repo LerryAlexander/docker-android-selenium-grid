@@ -50,6 +50,7 @@ services:
     ports:
       - "6080:6080"
     volumes:
+      - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-phone:/tmp/video # path to tests video execution
     environment:
@@ -72,6 +73,7 @@ services:
     ports:
       - "6081:6080"
     volumes:
+      - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-tablet:/tmp/video # path to tests video execution
     environment:

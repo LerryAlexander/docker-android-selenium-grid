@@ -86,7 +86,6 @@ function change_emulator_ram_size() {
     echo '---------------------------------------------'
     echo 'hardware-qemu.ini modified'
     echo '---------------------------------------------'
-    cat /root/android_emulator/hardware-qemu.ini
 }
 
 function check_emulator_popups() {

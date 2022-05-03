@@ -115,6 +115,7 @@ function check_emulator_popups() {
             ;;
             *"Not Responding: com.android.systemui"*)
               echo "Dismiss System UI isn't responding alert"
+              change_emulator_ram_size
               adb shell su root 'kill $(pidof com.android.systemui)'
               first_launcher=1
             ;;
@@ -152,7 +153,5 @@ sleep 1
 enable_proxy_if_needed
 sleep 1
 install_google_play
-sleep 1
-change_emulator_ram_size
 sleep 1
 check_emulator_popups

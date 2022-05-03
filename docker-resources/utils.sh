@@ -80,7 +80,6 @@ function enable_proxy_if_needed () {
 function check_emulator_popups() {
         echo "Waiting for device..."
         wait_emulator_to_be_ready
-        sleep 60
         $ANDROID_HOME/platform-tools/adb wait-for-device shell true
 
         EMU_BOOTED=0
@@ -105,9 +104,7 @@ function check_emulator_popups() {
             ;;
             *"Not Responding: com.android.systemui"*)
               echo "Dismiss System UI isn't responding alert"
-              adb shell input keyevent KEYCODE_ENTER
-              adb shell input keyevent KEYCODE_DPAD_DOWN
-              adb shell input keyevent KEYCODE_ENTER
+              adb shell su root 'kill $(pidof com.android.systemui)'
               first_launcher=1
             ;;
             *"Not Responding: com.google.android.gms"*)

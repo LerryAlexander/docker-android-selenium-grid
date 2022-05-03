@@ -80,6 +80,7 @@ function enable_proxy_if_needed () {
 function check_emulator_popups() {
         echo "Waiting for device..."
         wait_emulator_to_be_ready
+        sleep 120000
         $ANDROID_HOME/platform-tools/adb wait-for-device shell true
 
         EMU_BOOTED=0

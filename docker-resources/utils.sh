@@ -81,7 +81,6 @@ function change_emulator_ram_size() {
     echo '---------------------------------------------'
     echo 'Changing hw.ramSize in file hardware-qemu.ini'
     echo '---------------------------------------------'
-    cat /root/android_emulator/hardware-qemu.ini
     sed '/^hw.ramSize /s/=.*$/= 4096/' /root/android_emulator/hardware-qemu.ini
     echo '---------------------------------------------'
     echo 'hardware-qemu.ini modified'

@@ -78,13 +78,13 @@ function enable_proxy_if_needed () {
 }
 
 function change_emulator_ram_size() {
-    echo '---------------------------------------------'
-    echo 'Changing hw.ramSize in file hardware-qemu.ini'
-    echo '---------------------------------------------'
+    echo '-------------------------------------------------'
+    echo 'Changing emulator ram size for better performance'
+    echo '-------------------------------------------------'
     sed '/^hw.ramSize /s/=.*$/= 4096/' /root/android_emulator/hardware-qemu.ini
-    echo '---------------------------------------------'
-    echo 'hardware-qemu.ini modified'
-    echo '---------------------------------------------'
+    echo '-------------------------------------------------'
+    echo 'Emulator ram size changed to 4096'
+    echo '-------------------------------------------------'
 }
 
 function check_emulator_popups() {

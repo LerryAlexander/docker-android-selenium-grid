@@ -30,13 +30,16 @@ services:
 
   # Selenium hub
   selenium_hub:
-    image: selenium/hub:3.14.0-curium
+    image: selenium/hub
     container_name: selenium-hub
     hostname: selenium-hub
     networks:
       - docker_network
+    environment:
+      - GRID_TIMEOUT=140
+      - GRID_BROWSER_TIMEOUT=120
     ports:
-      - "4444:4444"
+      - "4442-4444:4442-4444"
 
   # Service for Docker Android (Phone device)
   node_phone:
@@ -51,6 +54,9 @@ services:
       - "6080:6080"
     volumes:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
+      - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
+      - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-phone:/tmp/video # path to tests video execution
     environment:
@@ -60,10 +66,15 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_HOST=selenium-hub
+      - CONNECT_TO_GRID_4=true
 
   # Service for Docker Android (Tablet device)
   node_tablet:
-    image: budtmo/docker-android-x86-12.0
+    image: budtmo/docker-android-x86-7.0
     container_name: tablet_container
     privileged: true
     networks:
@@ -75,15 +86,22 @@ services:
     volumes:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
+      - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-tablet:/tmp/video # path to tests video execution
     environment:
-      - DEVICE=Nexus 10
+      - DEVICE=Nexus 5
       - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_HOST=selenium-hub
+      - CONNECT_TO_GRID_4=true
 
 networks:
   docker_network:

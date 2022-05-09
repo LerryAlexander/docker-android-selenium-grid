@@ -26,7 +26,6 @@ if [ "$CONNECT_TO_GRID_4" = true ]; then
 
   #Get device names
   devices=($(adb devices | grep -oP "\K([^ ]+)(?=\sdevice(\W|$))"))
-  devices=emulator-5554
   echo "Devices found: ${#devices[@]}"
 
   #Create TOML configs file

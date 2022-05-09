@@ -55,6 +55,7 @@ services:
     volumes:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/appium.sh:/root/src/appium.sh
       - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
       - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
@@ -86,6 +87,7 @@ services:
     volumes:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/appium.sh:/root/src/appium.sh
       - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
       - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk

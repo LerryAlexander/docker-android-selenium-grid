@@ -62,9 +62,7 @@ services:
       - ./tests-output/video/video-phone:/tmp/video # path to tests video execution
     environment:
       - DEVICE=Samsung Galaxy S6
-      - CONNECT_TO_GRID=true
       - APPIUM=true
-      - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
       - SE_EVENT_BUS_HOST=selenium-hub
@@ -94,9 +92,7 @@ services:
       - ./tests-output/video/video-tablet:/tmp/video # path to tests video execution
     environment:
       - DEVICE=Nexus 5
-      - CONNECT_TO_GRID=true
       - APPIUM=true
-      - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
       - SE_EVENT_BUS_HOST=selenium-hub

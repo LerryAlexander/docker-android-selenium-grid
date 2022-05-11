@@ -56,6 +56,7 @@ services:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
       - $PWD/docker-resources/appium.sh:/root/src/appium.sh
+      - $PWD/docker-resources/appium.sh:/root/src/run_app.sh
       - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
       - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
@@ -63,7 +64,6 @@ services:
     environment:
       - DEVICE=Samsung Galaxy S6
       - APPIUM=true
-      - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -86,6 +86,7 @@ services:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
       - $PWD/docker-resources/appium.sh:/root/src/appium.sh
+      - $PWD/docker-resources/appium.sh:/root/src/run_app.sh
       - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
       - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
@@ -93,7 +94,6 @@ services:
     environment:
       - DEVICE=Nexus 5
       - APPIUM=true
-      - MOBILE_WEB_TEST=false
       - AUTO_RECORD=true
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442

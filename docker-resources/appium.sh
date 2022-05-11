@@ -310,7 +310,7 @@ function run_appium() {
     START_SELENIUM_NODE="/opt/bin/start-selenium-grid-node-docker.sh"
 		/root/generate_config.sh $NODE_CONFIG_TOML
 		echo "Starting new node configuration for selenium grid 4"
-		CMD+=" && wget -O /opt/selenium/selenium-serve.jar $DOWNLOAD_URL_SELENIUM_SERVER && bash $START_SELENIUM_NODE"
+		CMD+=" && wget -O /opt/selenium/selenium-server.jar $DOWNLOAD_URL_SELENIUM_SERVER && bash $START_SELENIUM_NODE"
   else
     echo "Skipping selenium grid connection"
   fi
@@ -382,5 +382,5 @@ elif [ "$GENYMOTION" = true ]; then
 	esac
 else
 	echo "Using Emulator"
-	python3 -m src.app
+	bash run_app.sh
 fi

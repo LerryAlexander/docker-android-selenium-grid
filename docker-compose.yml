@@ -56,8 +56,8 @@ services:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
       - $PWD/docker-resources/appium.sh:/root/src/appium.sh
-      - $PWD/docker-resources/appium.sh:/root/src/run_app.sh
-      - $PWD/docker-resources/appium.sh:/root/src/app.py
+      - $PWD/docker-resources/run_app.sh:/root/src/run_app.sh
+      - $PWD/docker-resources/app.py:/root/src/app.py
       - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
       - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
@@ -87,8 +87,8 @@ services:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
       - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
       - $PWD/docker-resources/appium.sh:/root/src/appium.sh
-      - $PWD/docker-resources/appium.sh:/root/src/run_app.sh
-      - $PWD/docker-resources/appium.sh:/root/src/app.py
+      - $PWD/docker-resources/run_app.sh:/root/src/run_app.sh
+      - $PWD/docker-resources/app.py:/root/src/app.py
       - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
       - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk

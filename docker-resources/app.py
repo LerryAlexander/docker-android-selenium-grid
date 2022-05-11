@@ -171,7 +171,7 @@ def appium_run(avd_name: str):
             start_selenium_node = "/opt/bin/start-selenium-grid-node-docker.sh"
             cmd += ' && wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}'.format(selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
         except ValueError as v_err:
-        logger.error(v_err)
+            logger.error(v_err)
     else:
         logger.info('Skipping selenium grid connection')
 
@@ -265,7 +265,7 @@ def run():
     logger.info('AVD name: {avd}'.format(avd=avd_name))
     is_first_run = not is_initialized(device)
 
-    dp_size = os.getenv('DATAPARTITION', '550m')
+    dp_size = os.getenv('DATAPARTITION', '4000m')
 
     if is_first_run:
         logger.info('Preparing emulator...')

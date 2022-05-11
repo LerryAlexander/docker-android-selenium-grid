@@ -382,5 +382,5 @@ elif [ "$GENYMOTION" = true ]; then
 	esac
 else
 	echo "Using Emulator"
-	bash run_app.sh
+	bash /root/src/run_app.sh
 fi

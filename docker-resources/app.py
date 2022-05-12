@@ -51,6 +51,18 @@ def convert_str_to_bool(str: str) -> bool:
     except AttributeError as err:
         logger.error(err)
 
+def replace_str_in_file(file_path: str, find: str, replace: str):
+    # Read in the file
+    with open(file_path, 'r') as file :
+        filedata = file.read()
+
+    # Replace the target string
+    filedata = filedata.replace(find, replace)
+
+    # Write the file out again
+    with open(file_path, 'w') as file:
+        file.write(filedata)
+
 
 def is_initialized(device_name) -> bool:
     config_path = os.path.join(ROOT, 'android_emulator', 'config.ini')
@@ -173,7 +185,7 @@ def appium_run(avd_name: str):
             if not os.path.isdir(jar_url):
                 os.mkdir(jar_url)
             start_selenium_node = "/opt/bin/start-selenium-grid-node-docker.sh"
-            cmd_connect_grid_4 += '& timeout 10 bash -c "until printf \"\" 2>>/dev/null >>/dev/tcp/{appium_host}/{appium_port}; do sleep 1; done; echo appium is ready and listening on port {appium_port}; wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}"'.format(appium_host=appium_host, appium_port=appium_port, selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
+            cmd_connect_grid_4 += "& timeout 10 bash -c 'until printf \"\" 2>>/dev/null >>/dev/tcp/{appium_host}/{appium_port}; do sleep 1; done; echo appium is ready and listening on port {appium_port}, now connection with grid 4 can be made; wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}'".format(appium_host=appium_host, appium_port=appium_port, selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
         except ValueError as v_err:
             logger.error(v_err)
     else:
@@ -204,7 +216,7 @@ def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_p
             "status-endpoint": "/status",
             "configs": [
                 "1",
-                '{{\"browserName\": \"{avd}\", \"platformName\": \"{platform}\", \"appium:platformVersion\": \"{version}\"}}'.format(avd=avd_name, platform=platform_name, version=ANDROID_VERSION)
+                '{{"browserName": "{avd}", "platformName": "{platform}", "appium:platformVersion": "{version}"}}'.format(avd=avd_name, platform=platform_name, version=ANDROID_VERSION)
             ]
         }
     }
@@ -216,8 +228,8 @@ def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_p
         os.mkdir(file_dir)
     with open(output_file, "w") as toml_file:
         toml_string = toml.dump(config, toml_file)
-    logger.info('Appium node config: '
-                '{config}'.format(config=toml_string))
+    replace_str_in_file(output_file, ',]', ']')
+    logger.info('Appium node config: {config}'.format(config=toml_string))
 
 def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
                        selenium_port: int, selenium_timeout: int, selenium_proxy_class: str):

@@ -142,7 +142,7 @@ def appium_run(avd_name: str):
     grid_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
     grid4_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID_4', False)))
-    logger.info('Connect to selenium grid 4? {connect}'.format(connect=grid_connect))
+    logger.info('Connect to selenium grid 4? {connect}'.format(connect=grid4_connect))
     if grid_connect and grid4_connect == False:
         # Ubuntu 16.04 -> local_ip = os.popen('ifconfig eth0 | grep \'inet addr:\' | cut -d: -f2 | awk \'{ print $1}\'').read().strip()
         local_ip = os.popen('ifconfig eth0 | grep \'inet\' | cut -d: -f2 | awk \'{ print $2}\'').read().strip()
@@ -189,6 +189,9 @@ def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_p
     """
 
     config = {
+        "server": {
+            "port": 5555
+        },
         "node": {
             "detect-drivers": False
         },
@@ -202,13 +205,14 @@ def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_p
         }
     }
 
-    logger.info('Appium node config to connect to selenium server 4: {config}'.format(config=config))
+    logger.info('Creating new appium service endpoint configuration to connect to selenium server 4')
     file_dir = '/opt/bin/'
     output_file = os.path.join(file_dir, 'config.toml')
     if not os.path.isdir(file_dir):
         os.mkdir(file_dir)
     with open(output_file, "w") as toml_file:
-        toml.dump(config, toml_file)
+        toml_string = toml.dump(config, toml_file)
+    logger.info('Appium node config: {config}'.format(config=toml_string))
 
 def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
                        selenium_port: int, selenium_timeout: int, selenium_proxy_class: str):

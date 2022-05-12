@@ -190,7 +190,7 @@ def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_p
 
     config = {
         "server": {
-            "port": 5555
+            "port": 5556
         },
         "node": {
             "detect-drivers": False

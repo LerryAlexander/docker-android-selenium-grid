@@ -169,13 +169,15 @@ def appium_run(avd_name: str):
             create_node_config_selenium_grid_4(avd_name, appium_host, appium_port, plafform_name)
             download_selenium_server_url = "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar"
             start_selenium_node = "/opt/bin/start-selenium-grid-node-docker.sh"
-            cmd += ' && wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}'.format(selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
+            cmd += ' & timeout 10 bash -c "until printf \"\" 2>>/dev/null >>/dev/tcp/{appium_host}/{appium_port}; do sleep 1; done; echo appium is ready and listening on port {appium_port}"; wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}'.format(appium_host=appium_host, appium_port=appium_port, selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
         except ValueError as v_err:
             logger.error(v_err)
     else:
         logger.info('Skipping selenium grid connection')
 
     title = 'Appium Server'
+    subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\"'.format(title=title, cmd=cmd), shell=True)
+    logger.info('Skipping selenium grid connection')
     subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\"'.format(title=title, cmd=cmd), shell=True)
 
 def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_port: int, platform_name: str):

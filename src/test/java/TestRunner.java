@@ -22,11 +22,11 @@ public class TestRunner {
     private LoginPage loginPage;
 
     @BeforeTest
-    //@Parameters({"platform", "deviceName"})
-    public void setCapabilities(){//String platform, String platformVersion, String deviceName){
+    @Parameters({"platform", "deviceName"})
+    public void setCapabilities(String platform, String platformVersion, String deviceName){
         driverCapabilities = new DriverCapabilities();
-        //driverCapabilities.setPlatform(platform);
-        //driverCapabilities.setDeviceName(deviceName);
+        driverCapabilities.setPlatform(platform);
+        driverCapabilities.setDeviceName(deviceName);
     }
 
     @BeforeClass

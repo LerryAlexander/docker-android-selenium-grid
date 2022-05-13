@@ -6,7 +6,9 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.net.URL;
+import java.time.Duration;
 
 public class Hooks {
 
@@ -30,12 +32,12 @@ public class Hooks {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", driverCapabilities.getPlatform());
         //caps.setCapability("platformVersion", driverCapabilities.getPlatformVersion());
-        caps.setCapability("deviceName", driverCapabilities.getDeviceName());
+        //caps.setCapability("deviceName", driverCapabilities.getDeviceName());
         caps.setCapability("appium:idleTimeout", "90");
         caps.setCapability("appium:uiautomator2ServerInstallTimeout", 90000);
-        caps.setCapability("automationName", "UiAutomator2");
-        caps.setCapability("app", Constants.APP_CONTAINER_PATH);
-        caps.setCapability("noSign", true);
+        caps.setCapability("appium:automationName", "UiAutomator2");
+        caps.setCapability("appium:app", Constants.APP_CONTAINER_PATH);
+        caps.setCapability("appium:noSign", true);
 
         try{
             driver = new AppiumDriver(new URL("http://"+System.getenv("DOCKER_SELENIUM_HOST")+":"+System.getenv("DOCKER_SELENIUM_PORT")+"/wd/hub"), caps);

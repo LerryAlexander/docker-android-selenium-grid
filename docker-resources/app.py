@@ -52,6 +52,13 @@ def convert_str_to_bool(str: str) -> bool:
         logger.error(err)
 
 def replace_str_in_file(file_path: str, find: str, replace: str):
+    """
+    Replace string in a file.
+
+    :param file_path: target file path
+    :param find: string to find
+    :param replace: string to replace
+    """
     # Read in the file
     with open(file_path, 'r') as file :
         filedata = file.read()
@@ -179,13 +186,15 @@ def appium_run(avd_name: str):
             appium_host = os.getenv('APPIUM_HOST', local_ip)
             appium_port = int(os.getenv('APPIUM_PORT', 4723))
             plafform_name = 'android'
-            create_node_config_selenium_grid_4(avd_name, appium_host, appium_port, plafform_name)
+            device_name = os.getenv('DEVICE', 'chrome')
+            browser_name = default_web_browser if mobile_web_test else device_name
+            create_node_config_selenium_grid_4(browser_name, appium_host, appium_port, plafform_name)
             download_selenium_server_url = "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar"
             jar_url = '/opt/selenium/'
             if not os.path.isdir(jar_url):
                 os.mkdir(jar_url)
             start_selenium_node = "/opt/bin/start-selenium-grid-node-docker.sh"
-            cmd_connect_grid_4 += "& timeout 10 bash -c 'until printf \"\" 2>>/dev/null >>/dev/tcp/{appium_host}/{appium_port}; do sleep 1; done; echo appium is ready and listening on port {appium_port}, now connection with grid 4 can be made; wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}'".format(appium_host=appium_host, appium_port=appium_port, selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
+            cmd_connect_grid_4 += "& timeout 10 bash -c 'until printf \"\" 2>>/dev/null >>/dev/tcp/{appium_host}/{appium_port}; do sleep 1; done; echo Appium Server is ready and listening on port {appium_port}, now connection with Selenium Grid 4 can be made...; wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}'".format(appium_host=appium_host, appium_port=appium_port, selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
         except ValueError as v_err:
             logger.error(v_err)
     else:
@@ -194,14 +203,15 @@ def appium_run(avd_name: str):
     title = 'Appium Server'
     subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\" {cmd_connect_grid_4}'.format(title=title, cmd=cmd, cmd_connect_grid_4=cmd_connect_grid_4), shell=True)
 
-def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_port: int, platform_name: str):
+def create_node_config_selenium_grid_4(browser_name: str, appium_host: str, appium_port: int, platform_name: str):
     """
     Create custom appium node config file in toml format to be able to connect with new selenium grid 4 architecture.
     Documentation on this can be found here: https://www.selenium.dev/documentation/grid/configuration/toml_options/#relaying-commands-to-a-service-endpoint-that-supports-webdriver
 
-    :param avd_name: Name of android virtual device / emulator
+    :param browser_name: According to Selenium 4 documentation this can be whatever the browser name is set by default, even though, if not browser is provided we can just put the name of android virtual device / emulator
     :param appium_host: Host where appium server is running
     :param appium_port: Port number where where appium server is running
+    :param platform_name: Always set to android
     """
 
     config = {
@@ -216,7 +226,7 @@ def create_node_config_selenium_grid_4(avd_name: str, appium_host: str, appium_p
             "status-endpoint": "/status",
             "configs": [
                 "1",
-                '{{"browserName": "{avd}", "platformName": "{platform}", "appium:platformVersion": "{version}"}}'.format(avd=avd_name, platform=platform_name, version=ANDROID_VERSION)
+                '{{"browserName": "{browser}", "platformName": "{platform}", "appium:platformVersion": "{version}"}}'.format(browser=browser_name, platform=platform_name, version=ANDROID_VERSION)
             ]
         }
     }

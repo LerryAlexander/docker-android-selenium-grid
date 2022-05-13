@@ -23,7 +23,7 @@ public class TestRunner {
 
     @BeforeTest
     @Parameters({"platform", "deviceName"})
-    public void setCapabilities(String platform, String platformVersion, String deviceName){
+    public void setCapabilities(String platform, String deviceName){
         driverCapabilities = new DriverCapabilities();
         driverCapabilities.setPlatform(platform);
         driverCapabilities.setDeviceName(deviceName);

@@ -32,7 +32,7 @@ public class Hooks {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", driverCapabilities.getPlatform());
         //caps.setCapability("platformVersion", driverCapabilities.getPlatformVersion());
-        //caps.setCapability("deviceName", driverCapabilities.getDeviceName());
+        caps.setCapability("deviceName", driverCapabilities.getDeviceName());
         caps.setCapability("appium:idleTimeout", "90");
         caps.setCapability("appium:uiautomator2ServerInstallTimeout", 90000);
         caps.setCapability("appium:automationName", "UiAutomator2");

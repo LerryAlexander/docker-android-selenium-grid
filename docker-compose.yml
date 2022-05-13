@@ -31,7 +31,7 @@ services:
   # Selenium hub
   selenium_hub:
     image: selenium/hub
-    container_name: selenium-hub
+    container_name: selenium_hub
     hostname: selenium-hub
     networks:
       - docker_network
@@ -66,10 +66,10 @@ services:
       - DEVICE=Samsung Galaxy S6
       - APPIUM=true
       - AUTO_RECORD=true
-      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_HOST=selenium_hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_NODE_HOST=selenium-hub
+      - SE_NODE_HOST=selenium_hub
       - CONNECT_TO_GRID_4=true
 
   # Service for Docker Android (Tablet device)
@@ -97,10 +97,10 @@ services:
       - DEVICE=Nexus 5
       - APPIUM=true
       - AUTO_RECORD=true
-      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_HOST=selenium_hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_NODE_HOST=selenium-hub
+      - SE_NODE_HOST=selenium_hub
       - CONNECT_TO_GRID_4=true
 
 networks:

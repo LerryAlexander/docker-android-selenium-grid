@@ -209,7 +209,7 @@ def create_node_config_selenium_grid_4(browser_name: str, appium_host: str, appi
     Create custom appium node config file in toml format to be able to connect with new selenium grid 4 architecture.
     Documentation on this can be found here: https://www.selenium.dev/documentation/grid/configuration/toml_options/#relaying-commands-to-a-service-endpoint-that-supports-webdriver
 
-    :param browser_name: According to Selenium 4 documentation this can be whatever the browser name is set by default, even though, if not browser is provided we can just put the name of android virtual device / emulator
+    :param browser_name: According to Relay options this can be whatever the browser name is set by default, even though, if not browser is provided we can just put the name of android virtual device / emulator
     :param appium_host: Host where appium server is running
     :param appium_port: Port number where where appium server is running
     :param platform_name: Always set to android

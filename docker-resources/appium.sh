@@ -300,6 +300,7 @@ _EOF
 function run_appium() {
 	echo "Preparing appium-server..."
 	CMD="appium --log $APPIUM_LOG"
+	CMD_CONNECT_TO_GRID_4=""
 	if [ "$CONNECT_TO_GRID" = true ] && ([ "$CONNECT_TO_GRID_4" = false ] || [ -z "$CONNECT_TO_GRID_4" ]); then
 		NODE_CONFIG_JSON="/root/src/nodeconfig.json"
 		/root/generate_config.sh $NODE_CONFIG_JSON
@@ -310,7 +311,7 @@ function run_appium() {
     START_SELENIUM_NODE="/opt/bin/start-selenium-grid-node-docker.sh"
 		/root/generate_config.sh $NODE_CONFIG_TOML
 		echo "Starting new node configuration for selenium grid 4"
-		CMD+=" & sleep 2s; wget -O /opt/selenium/selenium-server.jar $DOWNLOAD_URL_SELENIUM_SERVER && bash $START_SELENIUM_NODE"
+		CMD_CONNECT_TO_GRID_4+="& sleep 2s; wget -O /opt/selenium/selenium-server.jar $DOWNLOAD_URL_SELENIUM_SERVER && bash $START_SELENIUM_NODE"
   else
     echo "Skipping selenium grid connection"
   fi
@@ -321,7 +322,7 @@ function run_appium() {
 	fi
 
 	echo "Preparation is done"
-	TERM="xterm -T AppiumServer -n AppiumServer -e $CMD"
+	TERM="xterm -T AppiumServer -n AppiumServer -e $CMD $CMD_CONNECT_TO_GRID_4"
 	$TERM
 }
 

@@ -195,7 +195,8 @@ def appium_run(avd_name: str):
             if not os.path.isdir(jar_url):
                 os.mkdir(jar_url)
             start_selenium_node = "/opt/bin/start-selenium-grid-node-docker.sh"
-            cmd_connect_grid_4 += "& timeout 10 bash -c 'until printf \"\" 2>>/dev/null >>/dev/tcp/{appium_host}/{appium_port}; do sleep 1; done; echo Appium Server is ready and listening on port {appium_port}, now connection with Selenium Grid 4 can be made...; wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} && bash {start_node}'".format(appium_host=appium_host, appium_port=appium_port, selenium_jar_url=download_selenium_server_url, start_node=start_selenium_node)
+            subprocess.check_call('wget -O /opt/selenium/selenium-server.jar {selenium_jar_url}'.format(selenium_jar_url=download_selenium_server_url), shell=True)
+            cmd_connect_grid_4 += "& sleep 3s; bash {start_node}".format(appium_host=appium_host, appium_port=appium_port, start_node=start_selenium_node)
         except ValueError as v_err:
             logger.error(v_err)
     else:
@@ -297,7 +298,7 @@ def run():
     logger.info('AVD name: {avd}'.format(avd=avd_name))
     is_first_run = not is_initialized(device)
 
-    dp_size = os.getenv('DATAPARTITION', '4000m')
+    dp_size = os.getenv('DATAPARTITION', '500m')
 
     if is_first_run:
         logger.info('Preparing emulator...')

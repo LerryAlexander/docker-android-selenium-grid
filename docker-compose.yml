@@ -51,6 +51,7 @@ services:
       - "6080:6080"
     volumes:
       - $PWD/docker-resources/utils.sh:/root/src/utils.sh
+      - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
       - ./src/test/resources/TheApp-v1.8.0.apk:/root/apk/TheApp-v1.8.0.apk
       - ./tests-output/video/video-phone:/tmp/video # path to tests video execution
     environment:
